@@ -3140,15 +3140,15 @@ def mold_image(images, config):
     """
     if config.BACKBONE in ["mobilenetv1","mobilenetv2"]:
         return images.astype(np.float32)/127.5 - 1.0
-    if config.BACKBONE in ["resnet50","resnet101"]:
-        images.astype(np.float32) - config.MEAN_PIXEL
+    elif config.BACKBONE in ["resnet50","resnet101"]:
+        return images.astype(np.float32) - config.MEAN_PIXEL
 
 
 def unmold_image(normalized_images, config):
     """Takes a image normalized with mold() and returns the original."""
     if config.BACKBONE in ["mobilenetv1","mobilenetv2"]:
         return ((normalized_images +1)*127.5).astype(np.uint8)
-    if config.BACKBONE in ["resnet50","resnet101"]:
+    elif config.BACKBONE in ["resnet50","resnet101"]:
         return (normalized_images + config.MEAN_PIXEL).astype(np.uint8)
 
 
